@@ -12,6 +12,12 @@
         <input name="search" align="bottom" style="width:80%" value="<%if (request.getParameter("search") != null) %><%= request.getParameter("search") %>"/>
         <input type="submit" value="Go"/>
     </form>
+    <% if(request.getParameter("search") != null && !request.getParameter("search").trim().equals("")){%>
+        <%
+
+        %>
+
+    <%}%>
 </body>
 
 </html>
