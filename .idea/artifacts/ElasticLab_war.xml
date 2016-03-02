@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ElasticLab:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="ElasticLab.war">
+      <element id="artifact" artifact-name="ElasticLab:war exploded" />
+    </root>
+  </artifact>
+</component>
