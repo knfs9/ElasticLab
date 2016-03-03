@@ -2,11 +2,10 @@ package ru.nntu.elastic;
 
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.common.util.CancellableThreads;
+import ru.nntu.elastic.Utils.Consts;
 
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
@@ -22,11 +21,8 @@ import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
  */
 public class Generator {
 
-    private static final String host = "localhost";
-    private static final String cluster = "elasticsearch";
-    private static final int port = 9300;
-    private static final int count = 50;
 
+    private static final int count = 50;
     private static ArrayList<String> skills = new ArrayList<String>(){{
         add("Java");
         add("C/C++");
@@ -92,18 +88,18 @@ public class Generator {
     }
     public static void main(String[] args) throws Exception {
 
-        Settings settings = Settings.settingsBuilder().put("cluster.name", cluster)
+        Settings settings = Settings.settingsBuilder().put("cluster.name", Consts.CLUSTER)
                                                       .build();
         TransportClient client = new TransportClient.Builder().settings(settings).build();
         client.addTransportAddress(new InetSocketTransportAddress(
-                InetAddress.getByName(host),
-                port
+                InetAddress.getByName(Consts.HOST),
+                Consts.PORT
         ));
 
         client.admin().indices().prepareRefresh().execute().actionGet();
 
         for(int i = 0; i <= count; i++){
-            IndexResponse response = client.prepareIndex("habrauser","users", Integer.toString(i))
+            IndexResponse response = client.prepareIndex(Consts.INDEX, Consts.TYPE, Integer.toString(i))
             .setSource(
                     jsonBuilder().startObject()
                                  .field("firstname", getRandomName(getRandomNumber(4,10)))
