@@ -45,7 +45,7 @@ public class HTMLHelper {
         SearchResponse response = client.prepareSearch(Consts.INDEX)
                 .setTypes(Consts.TYPE)
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-                .setQuery(QueryBuilders.matchQuery("firstname",value))
+                .setQuery(QueryBuilders.matchQuery("_all",value))
                 .execute().actionGet();
         SearchHit[] results = response.getHits().getHits();
         for(SearchHit hit : results){
